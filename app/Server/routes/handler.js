@@ -1,8 +1,29 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt')
+//const saltRounds = 10;
+
+const session = require('express-session')
+
+
+
+
+  router.use(session(
+      {
+      key: "userId",
+      secret: "subscribe",
+      resave:  false,
+      saveUninitialized: false,
+      cookie: {
+          expires: 60*60*1000,
+      }
+  }))
+
+let dbPassword = [];
+let user = [];
 
 const {Client} = require('pg')
-let db = [];
+
 const client = new Client({
     user: "postgres",
     host: "localhost",
@@ -10,30 +31,61 @@ const client = new Client({
     password: "Geforce820",
     port: 5432
   });
-
   client.connect();
 
-  client.query('Select * from Prihlasenie', (err, res)=>{
-      if(!err){
-        db = res.rows;
-        console.log(res.rows)
+ router.get("/",(req, res)=>{
+     if(req.session.user){
+         res.send({loggedIn: true, user: req.session.user});
+     }else{
+         res.send({loggedIn: false})
+     }
+ })
+
+
+
+router.post('/', function (req, respond) {
+    user = JSON.parse(JSON.stringify(req.body))
+    // Pripadny insert prihlasovacich udajov
+    /*bcrypt.hash('heslo', saltRounds, (err, hash)=>{
+        client.query("Insert Into prihlasenie (ID, meno, heslo) Values (4,'FrantisekHarnicar','"+hash+"')",
+        (err, result)=>{
+            console.log(hash)
+            console.log(err)
+        })
+        client.end;
+    })*/
+
+
+    client.query("Select * from Prihlasenie Where meno='" +user.username+"'", (err, res)=>{
         
-      }else{
-          console.log(err.message);
-      }
-      client.end;
+        if(!err){
+            
+            
+                if(res.rowCount > 0){
+                    dbPassword = res.rows[0].heslo;
+                    bcrypt.compare(user.password,dbPassword, (err, hash)=>{
+
+                    if(hash){
+                        console.log("Login success")
+                        req.session.user = res;
+                        respond.send(true)
+                    }else{
+                        console.log("Wrong password")
+                        respond.send(false)
+                    }
+                })
+                }else{
+                    console.log('Wrong name')
+                    respond.send(false)
+                }
+            
+
+        }else{
+            console.log(err.message);
+        }
+        client.end;
+    })
   })
 
-router.get('/tweets', async (req, res) => {
-    /*const str = [{
-        "name": "asd ad",
-        "msg": "dasdasd d asd asd",
-        "username": "dsa sddddd"
-    }];*/
-    res.end(JSON.stringify(db));
-});
 
 module.exports = router;
-
-
-

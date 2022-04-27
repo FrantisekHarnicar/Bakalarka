@@ -3,12 +3,22 @@ import {Link} from 'react-router-dom';
 
 function Nav() {
     return(
-
-        <div >
-            <Link to='/' >Home</Link>
-            <Link to='/tweets' >Tweets</Link>
-        </div>
-          
+        <section>
+            <div>
+                <p>
+                    Metóda ikonicko-textovej výuky
+                </p>
+            </div>
+            <div>
+                <p>
+                    Pokračovať ďalej ako...
+                </p>
+            </div>
+            <div >
+                <Link to='/teacher' >Učiteľ</Link>
+                <Link to='/student' >Študent</Link>
+            </div>
+        </section>
     );
 }
 

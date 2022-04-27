@@ -15,6 +15,7 @@ function Tweet(){
     };
     return (
         <section>
+            
             {
                 items.map(item => (
                     <div>
@@ -26,6 +27,7 @@ function Tweet(){
                         </p>
                        
                     </div>
+                    
                 ))
             }
         </section>
