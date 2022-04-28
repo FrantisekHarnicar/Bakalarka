@@ -1,0 +1,63 @@
+p{
+    font-family: 'Franklin Gothic';
+}
+.background {
+    background-image: url('./img/mainScreen.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    
+
+}
+
+.caption {
+    margin-top: 5em;
+    text-align: center;
+    width: 65%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color: #FF2E63;
+    box-shadow: 0px 17px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 1em;
+}
+.Pcaption{
+    font-weight: 600;
+    font-size: 3rem;
+    color: #000000;
+}
+.continue{
+    font-size: 1.5rem;
+}
+.icon{
+    width: 100%;
+}
+.bubles{
+    width: 25%;
+    
+    background: #ffffff;
+    box-shadow: 3px 13px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3em;
+}
+.bubles:hover{
+    background: #f1f1f1;
+    transform: translateY(2px);
+}
+.bublesCaption{
+    margin-top: 1em;
+    color: #000000;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+.bublesPosition{
+    margin-top: 8em;
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    
+}

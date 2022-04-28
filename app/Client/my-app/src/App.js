@@ -1,6 +1,6 @@
 //import logo from './logo.svg';
 import './styles/App.css';
-import Nav from './screens/Nav';
+import MainScreen from './screens/MainScreen';
 import TeacherLogin from './screens/TeacherLogin';
 import StudentLogin from './screens/StudentLogin';
 import Teacher from './screens/Teacher';
@@ -11,9 +11,9 @@ import ProtectedRoutes from "./screens/ProtectedRoutes"
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div >
       <Routes>
-          <Route path='/' element={<Nav/>} >
+          <Route path='/' element={<MainScreen/>} >
             <Route path='teacherlogin' element={<TeacherLogin/>} />
             <Route path='studentlogin' element={<StudentLogin/>} />
           </Route>
@@ -21,7 +21,7 @@ function App() {
             <Route path='/teacher' element={<Teacher/>} />
           </Route>
           <Route path='/student' element={<Student/>} />
-          <Route path='*' element={<Nav/>} />
+          <Route path='*' element={<MainScreen/>} />
         </Routes>
       </div>
     </Router>

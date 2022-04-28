@@ -2,9 +2,16 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import '../styles/teacher.scss';
 import { useNavigate } from 'react-router-dom';
+import teacherIcon from '../styles/img/teacherIcon.png'
+import { Button, Modal} from 'react-bootstrap';
 
 
 function TeacherLogin() {
+
+    const [show, setShow] = useState(true);
+
+    const handleClose = () => {setShow(false); navigate('/')}
+
     axios.defaults.withCredentials = true;
     useEffect(()=>{
         axios.get('http://localhost:3000/teacherlogin').then((response) =>{
@@ -14,6 +21,8 @@ function TeacherLogin() {
         })
     },[])
     const [inputs, setInputs] = useState({});
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
     const [login, setLogin] = useState(false);
     const navigate = useNavigate();
 
@@ -49,29 +58,39 @@ function TeacherLogin() {
 
     return(
         <section>
-            <div >
-                <form onSubmit={handleSubmit}>
-                    <label>Meno:
-                        <input 
-                            type="text" 
-                            name="username" 
-                            value={inputs.username || ""} 
-                            onChange={handleChange}
-                        />
-                    </label>
-                    <label>Heslo:
-                        <input 
-                        type="password" 
-                        name="password" 
+
+            <Modal show={show} onHide={handleClose} centered={true} style={{borderRadius: '24px'}} >
+                <Modal.Header style={{paddingBottom: "5em", backgroundColor: "#393E46", border: '0px'}}>
+                <Modal.Title className="iconPosition"><img className="icon1" src={teacherIcon}/></Modal.Title>
+                </Modal.Header>
+                <Modal.Body bsPrefix className="bodyModal">
+                <div className="form__group field">
+                    <input type="input" className="form__field" placeholder="Meno" name="username" id='name' 
+                        value={inputs.username || ""}
+                        onChange={handleChange}
+                         />
+                    <label  className="form__label">Meno</label>
+                </div>
+                <div className="form__group field">
+                    
+                    <input type="password" className="form__field" placeholder="Heslo" name="password" id='password' 
                         value={inputs.password || ""} 
                         onChange={handleChange}
-                        />
-                    </label>
-                    <input type="submit"
+                         />
+                    <label  className="form__label">Heslo</label>
+                </div>
+                </Modal.Body>
+                <Modal.Footer bsPrefix className="footerModal">
+                <Button className="button-17" onClick={handleSubmit}>
+                    Prihlásiť sa
+                </Button>
+                
+                </Modal.Footer>
+            </Modal>
 
-                    />
-                </form>
-            </div>
+
+
+
         </section>
     );
 }
