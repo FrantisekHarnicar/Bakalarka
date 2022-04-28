@@ -1,37 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-
-function Tweet(){
-    useEffect( () => {
-        fetchItems();
-    }, []);
-
-    const [items, setItems] = useState([]);
-
-    const fetchItems = async () => {
-        const data = await fetch('/tweets');
-        const items = await data.json();
-        setItems(items);
-    };
+function Student(){
+    const [name, setName] = useState('Použivateľ')
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem('studentName')
+        navigate('/')
+    }
     return (
         <section>
-            
-            {
-                items.map(item => (
-                    <div>
-                        <p>
-                            {item.Meno}
-                        </p>
-                        <p>
-                            {item.Heslo}
-                        </p>
-                       
-                    </div>
-                    
-                ))
-            }
+            <div >
+                adasdasdasddasd
+            </div>
+            <button onClick={logout}>Odhlásenie</button>
+                
         </section>
     );
 }
 
-export default Tweet;
+export default Student;

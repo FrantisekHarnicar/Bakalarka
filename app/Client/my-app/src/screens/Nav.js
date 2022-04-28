@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 
 function Nav() {
     return(
@@ -15,9 +15,10 @@ function Nav() {
                 </p>
             </div>
             <div >
-                <Link to='/teacher' >Učiteľ</Link>
-                <Link to='/student' >Študent</Link>
+                <Link to='/teacherlogin' >Učiteľ</Link>
+                <Link to='/studentlogin' >Študent</Link>
             </div>
+            <Outlet/>
         </section>
     );
 }

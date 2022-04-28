@@ -33,7 +33,15 @@ const client = new Client({
   });
   client.connect();
 
- router.get("/",(req, res)=>{
+  router.delete("/teacher", (req, res) => {
+    if(req.session.user) {
+      req.session.destroy((err) => {
+        res.send(err);
+      });
+    }
+  })
+
+ router.get("/teacherlogin",(req, res)=>{
      if(req.session.user){
          res.send({loggedIn: true, user: req.session.user});
      }else{
@@ -43,7 +51,7 @@ const client = new Client({
 
 
 
-router.post('/', function (req, respond) {
+router.post('/teacherlogin', function (req, respond) {
     user = JSON.parse(JSON.stringify(req.body))
     // Pripadny insert prihlasovacich udajov
     /*bcrypt.hash('heslo', saltRounds, (err, hash)=>{
@@ -68,7 +76,7 @@ router.post('/', function (req, respond) {
                     if(hash){
                         console.log("Login success")
                         req.session.user = res;
-                        respond.send(true)
+                        respond.send({loggedIn:true, name: req.session.user})
                     }else{
                         console.log("Wrong password")
                         respond.send(false)

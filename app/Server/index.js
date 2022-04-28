@@ -7,7 +7,7 @@
   const app = express();
   app.use(bodyParser.urlencoded({extended:true}));
   app.use(bodyParser.json());
-  app.use('/teacher', routesHandler);
+  app.use('/', routesHandler);
   app.use(cookieParser)
   app.use(cors({
     origin: ["http://localhpst:3000"],
