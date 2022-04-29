@@ -60,7 +60,7 @@ function TeacherLogin() {
         <section>
 
             <Modal show={show} onHide={handleClose} centered={true} style={{borderRadius: '24px'}} >
-                <Modal.Header style={{paddingBottom: "5em", backgroundColor: "#393E46", border: '0px'}}>
+                <Modal.Header closeButton onClick={handleClose} style={{paddingBottom: "5em", backgroundColor: "#393E46", border: '0px'}}>
                 <Modal.Title className="iconPosition"><img className="icon1" src={teacherIcon}/></Modal.Title>
                 </Modal.Header>
                 <Modal.Body bsPrefix className="bodyModal">

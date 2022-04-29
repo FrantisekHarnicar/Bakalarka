@@ -1,0 +1,76 @@
+.greenButtons{
+    background-color: #43C140;
+    padding-left: 2em;
+    padding-right: 2em;
+    border: 0;
+    border-radius: 13px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    width: 170px;
+}
+.greenButtons:hover{
+    background-color: #ffffff;
+    color: #43C140;
+}
+.greenButtons:focus{
+    background-color: #43C140;
+    color: #ffffff;
+}
+.blueButtons{
+    background-color: #55AFE4;
+    padding-left: 2em;
+    padding-right: 2em;
+    border: 0;
+    border-radius: 13px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    width: 170px;
+}
+.blueButtons:hover{
+    background-color: #ffffff;
+    color: #55AFE4;
+}
+.blueButtons:focus{
+    background-color: #55AFE4;
+    color: #ffffff;
+}
+.test{
+    background-color: #3c4043;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 730px;
+    height: 200px;
+    border-radius: 10px;
+    margin-top: 2em;
+    padding: 2em;
+}
+.testCaption{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.testCaptionNazov{
+    color: #ffffff;
+    font-size: 2rem;
+}
+.testCaptionPopis{
+    color: #fff;
+    font-size: 1.2rem;
+}
+.close{
+    width: 3%;
+    position: relative;
+    bottom: 70px;
+    left: 10px;
+}
+.close:hover{
+    cursor: pointer;
+    transform: translateY(2px);
+}
