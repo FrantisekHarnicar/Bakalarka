@@ -14,7 +14,6 @@ const client = new Client({
     port: 5432
   });
   client.connect();
-  console.log("skuska")
 
   router.get('/student', function (req, res){
     client.query("Select * from zaznam_testov ", (err, respond)=>{
@@ -22,6 +21,14 @@ const client = new Client({
     })
 
   })
+  router.post('/studentTest', function (req, res){
+    client.query("Select * from zaznam_testov Where id='"+req.body.testID+"'", (err, respond)=>{
+        res.send(respond)
+        console.log(err)
+    })
+
+  })
+  
 
 
   module.exports = router;

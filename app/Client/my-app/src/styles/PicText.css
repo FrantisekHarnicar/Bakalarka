@@ -1,0 +1,16 @@
+.question{
+    background-color: rgb(236, 236, 236);
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.4em;
+}
+.question--obr{
+    width: 85%;
+    margin: 0.5em;
+}
+.question--input{
+    width: 95%;
+}

@@ -68,6 +68,7 @@ function Teacher(){
                 <div className="scroll" >
                     {test}
                 </div>
+
             </section>
         </div>
 

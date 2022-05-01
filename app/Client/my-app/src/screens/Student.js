@@ -19,13 +19,13 @@ function Student(){
         axios.get('http://localhost:3000/student')
         .then((res) => {
             setTestsDB(res.data.rows)  
-            console.log(testsDB)
         })
     },[])
     const test = testsDB.map((item)=>{
         return(
         <Test
             key={item.id}
+            id={item.id}
             nazov_testu = {item.nazov_testu}
             meno_ucitela = {item.meno_ucitela}
             datum_publikacie = {item.datum_publikacie}

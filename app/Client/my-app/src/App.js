@@ -7,6 +7,7 @@ import Teacher from './screens/Teacher';
 import Student from './screens/Student';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import ProtectedRoutes from "./screens/ProtectedRoutes"
+import Test from './screens/PageForStudentTest';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
             <Route path='/teacher' element={<Teacher/>} />
           </Route>
           <Route path='/student' element={<Student/>} />
+          <Route path='/studentTest'>
+            <Route path=':id' element={<Test />}/>
+          </Route>
           <Route path='*' element={<MainScreen/>} />
         </Routes>
       </div>

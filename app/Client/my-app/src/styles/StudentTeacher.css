@@ -65,3 +65,78 @@
     border: 6px solid transparent;
     background-clip: content-box;
 }
+.testBackground{
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.test--navigation{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1em;
+    height: 8%;
+}
+.current--question{
+    background-color: #282c34;
+    color: white;
+}
+.info--list{
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    
+}
+
+li{
+    font-family: 'Franklin Gothic';
+    padding: 0.5em;
+}
+.sipkyMinus{
+    width: 3%;
+}
+.sipkyPlus{
+    width: 3%;
+}
+.sipkyPlus:hover{
+    cursor: pointer;
+    transform: translateX(3px);
+}
+.sipkyMinus:hover{
+    cursor: pointer;
+    transform: translateX(-3px);
+}
+.scroll--question{
+    overflow: auto;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.main--test{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    width: 90%;
+}
+.scroll--question::-webkit-scrollbar {
+    width: 20px;
+  }
+.scroll--question::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+.scroll--question::-webkit-scrollbar-thumb{
+    background-color: #282c34;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    
+}

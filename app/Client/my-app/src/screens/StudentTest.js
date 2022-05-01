@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import '../styles/tests.css'
 import testIcon from '../styles/img/testIcon.png'
 import { Button } from "react-bootstrap";
+import {useNavigate} from 'react-router-dom'
 
 
 
 function StudentTest(props){
+    const navigate = useNavigate()
     let publicate = new Date(props.datum_publikacie)
-    
+    const clic = () =>{
+        navigate('/studentTest/'+(props.id))
+    }
 
     return (
         
@@ -18,7 +22,7 @@ function StudentTest(props){
                         <p className="testCaptionPopis">Vypracoval: {props.meno_ucitela}</p>
                         <p className="testCaptionPopis">Publikované: {publicate.getDate()}.{publicate.getMonth()+1}.{publicate.getFullYear()}</p>
                     </div>
-                    <Button className="greenButtons">Vypracovať</Button>
+                    <Button onClick={clic} className="greenButtons">Vypracovať</Button>
                 </div>
         
     );
