@@ -7,6 +7,11 @@ import indian from '../styles/img/indian.png'
 
 function PicText(props){
 
+    const getInputValue = (event)=>{
+        const inputValue = event.target.value;
+        props.handleChange(props.id, inputValue);
+      };
+    
     //true: pic to text
     //false: text to pic
     return (
@@ -18,7 +23,12 @@ function PicText(props){
         :
         <div className="question">
                 <img className="question--obr" src={indian}/>
-                <input className="question--input" type="input"/>
+                <input 
+                id={props.inputId}
+                onChange={getInputValue} 
+                placeholder={props.answer} 
+                className="question--input" 
+                type="input"/>
             </div>
         }</>
     );

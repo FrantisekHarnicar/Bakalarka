@@ -6,7 +6,6 @@ const TestInfo = (props) => {
   for(let i = 1 ; i <= props.questionCount; i++) {
     questionArray.push(i)
   }
-  console.log(props.currentQuestion)
 
   const question = questionArray.map((item) => {
     return (

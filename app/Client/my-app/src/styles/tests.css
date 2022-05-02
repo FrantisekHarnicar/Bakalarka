@@ -13,6 +13,7 @@
 .greenButtons:hover{
     background-color: #ffffff;
     color: #43C140;
+    border: 2px solid #43C140;
 }
 .greenButtons:focus{
     background-color: #43C140;
