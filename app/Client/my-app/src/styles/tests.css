@@ -9,6 +9,7 @@
     margin-bottom: 0.5em;
     margin-top: 0.5em;
     width: 170px;
+    border: 2px solid #43C140;
 }
 .greenButtons:hover{
     background-color: #ffffff;
@@ -30,10 +31,12 @@
     margin-bottom: 0.5em;
     margin-top: 0.5em;
     width: 170px;
+    border: 2px solid #55AFE4
 }
 .blueButtons:hover{
     background-color: #ffffff;
     color: #55AFE4;
+    border: 2px solid #55AFE4
 }
 .blueButtons:focus{
     background-color: #55AFE4;

@@ -11,9 +11,11 @@ function PicText(props){
         const inputValue = event.target.value;
         props.handleChange(props.id, inputValue);
       };
+      const pictogram = props.pic
+
     
-    //true: pic to text
-    //false: text to pic
+    //true: text do obrazkov
+    //false: obrazky do textu
     return (
         <>{props.typ?
             <div className="question">
@@ -22,7 +24,7 @@ function PicText(props){
             </div>
         :
         <div className="question">
-                <img className="question--obr" src={indian}/>
+                <img className="question--obr" src={require(`../styles/img/pictograms/${pictogram}.png`)}/>
                 <input 
                 id={props.inputId}
                 onChange={getInputValue} 

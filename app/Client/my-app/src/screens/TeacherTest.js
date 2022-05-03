@@ -4,9 +4,11 @@ import testIcon from '../styles/img/testIcon.png'
 import close from '../styles/img/close.png'
 import { Button } from "react-bootstrap";
 import Axios from "axios"
+import {useNavigate} from 'react-router-dom'
 
 
 function TeacherTest(props){
+    const navigate = useNavigate()
     let publicate = new Date(props.datum_publikacie)
     const [isDelete, setIsDelete] = useState(false)
     const deleteTest = () =>{
@@ -31,7 +33,7 @@ function TeacherTest(props){
                 </div>
                 <div style={{width: "25%"}}>
                     <Button className="greenButtons">Upraviť</Button>
-                    <Button className="blueButtons" >Hodnotenie</Button>
+                    <Button onClick={() => navigate('/teacherRating/'+(props.id))} className="blueButtons" >Hodnotenie</Button>
                 </div>
                     <img onClick={deleteTest} src={close} className="close"/>
             </div>

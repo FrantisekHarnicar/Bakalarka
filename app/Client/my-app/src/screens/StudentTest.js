@@ -15,15 +15,15 @@ function StudentTest(props){
 
     return (
         
-                <div className="test">
-                    <img src={testIcon} style={{width: "23%"}}/>
-                    <div className="testCaption">
-                        <p className="testCaptionNazov">{props.nazov_testu}</p>
-                        <p className="testCaptionPopis">Vypracoval: {props.meno_ucitela}</p>
-                        <p className="testCaptionPopis">Publikované: {publicate.getDate()}.{publicate.getMonth()+1}.{publicate.getFullYear()}</p>
-                    </div>
-                    <Button onClick={clic} className="greenButtons">Vypracovať</Button>
-                </div>
+        <div className="test">
+            <img src={testIcon} style={{width: "23%"}}/>
+            <div className="testCaption">
+                <p className="testCaptionNazov">{props.nazov_testu}</p>
+                <p className="testCaptionPopis">Vypracoval: {props.meno_ucitela}</p>
+                <p className="testCaptionPopis">Publikované: {publicate.getDate()}.{publicate.getMonth()+1}.{publicate.getFullYear()}</p>
+            </div>
+            <Button onClick={clic} className="greenButtons">Vypracovať</Button>
+        </div>
         
     );
 }
