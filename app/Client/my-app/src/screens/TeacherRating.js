@@ -23,9 +23,10 @@ function TeacherRating(){
     const [isLoading, setIsLoading] = useState(true)
     const [show, setShow] = useState(false)
     const [studentRating, setStudentRating] = useState([])
-    const [studentName, setStudentName] = useState([])
+    const [studentTest, setStudentTest] = useState([])
 
     const [number, setNumber] = useState(0)
+    let oneQuestion =[]
 
     const logout = () => {
         axios.delete('http://localhost:3000/teacher')
@@ -39,16 +40,16 @@ function TeacherRating(){
             console.log(err)
         })
       }
-      useEffect(()=>{
-        axios.post('http://localhost:3000/studentRating',({id:params.id}))
-        .then((res)=>{
-            setStudentRating(JSON.parse(JSON.stringify(res.data.allRating)))
-            console.log(studentRating)
-            setIsLoading(false)
-        })
-      },[])
+    useEffect(()=>{
+    axios.post('http://localhost:3000/studentRating',({id:params.id}))
+    .then((res)=>{
+        setStudentRating(JSON.parse(JSON.stringify(res.data.allRating)))
+        console.log(studentRating)
+        setIsLoading(false)
+    })
+    },[])
 
-      if(isLoading){
+    if(isLoading){
         return(
             <div className="background">
                 <section className="mainBlock" >
@@ -59,7 +60,7 @@ function TeacherRating(){
     }
 
     const plus = () => {
-        if(studentRating.rows[0].length-1 > number){ 
+        if(studentTest.test.test.length-1 > number){ 
             setNumber(number+1)
         }
     }
@@ -69,10 +70,26 @@ function TeacherRating(){
         }
     }
 
-    const showRating = (show, studentName) =>{
+    const showRating = (show, item) =>{
         setShow(show)
-        setStudentName(studentName)
-        
+        setStudentTest(item)
+        console.log(item)
+
+    }
+    if(studentTest.test !== undefined){
+        oneQuestion = studentTest.test.test[number].content.map((item) => {
+            return(
+                <PicText
+                    key={item.inputId}
+                    inputId={item.inputId}
+                    id={item.id}
+                    pic={item.pic}
+                    text={item.text}
+                    typ={studentTest.test.test[number].type}
+                    isTeacher={true}
+                />
+            )
+        } ) 
     }
 
 
@@ -93,32 +110,33 @@ function TeacherRating(){
                         <img className="logOut" src={logOut} onClick={logout}/>
                     </div>
                 </div>
-                <div className="scroll">
+                <div className="scroll" style={{height: "100%"}}>
                     {show?
                     <div className="testBackground" >
                         <div className="test--navigation">
                             <img className="sipkyMinus" src={Minus} onClick={minus}/>
                             <TestInfo
-                                questionCount = {studentRating.rows[0].length}
+                                questionCount = {studentTest.test.test.length}
                                 currentQuestion = {number}
                             />
                             <img className="sipkyPlus" src={Plus} onClick={plus}/>
                         </div>
-                        {/* <div className="main--test">
+                        <div className="main--test">
                             <div className="scroll--question">
                                 { oneQuestion }
                             </div>
                         </div>
                         <div className="timer">
                             <div className="timer--items">
-                                <Button onClick={saveTest} className="greenButtons">Odovzdať</Button>
+                                <p>{studentTest.cas_riesenia}</p>
+                                <Button style={{width: "40%"}} onClick={() => setShow(false)}  className="greenButtons">Ukončiť prehľad</Button>
                             </div>
-                        </div> */}
+                        </div> 
                     </div>
                     :
                     <>
                     <div className="button--endTest">
-                        <Button style={{width: "25%"}} onClick={() => navigate("/student")} className="blueButtons">Ukončiť prehľad</Button>
+                        <Button style={{width: "25%"}} onClick={() => navigate("/teacher")} className="blueButtons">Ukončiť prehľad</Button>
                     </div>
                     <Table
                         tableSolution={studentRating}

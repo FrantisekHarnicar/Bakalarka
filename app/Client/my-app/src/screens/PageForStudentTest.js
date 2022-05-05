@@ -52,12 +52,20 @@ function PageForStudentTest(){
             setSeconds(seconds => seconds + 0.5)
         }, 1000)
     }
-    const randomModalImages = (a)=>{
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-    }
+    
+    const randomModalImages = (array, index)=>{
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        let uniqueChars = [];
+        array.forEach((c) => {
+          if (!uniqueChars.includes(c)) {
+              uniqueChars.push(c);
+          }
+        });
+        modalImages[index].content = uniqueChars
+      }
     const params = useParams();
     useEffect(()=>{
         axios.post('http://localhost:3000/studentTest',({testID:params.id}))
@@ -98,7 +106,7 @@ function PageForStudentTest(){
                             jsonAnswer.test[i].content[x].pic = "addimage"
                             jsonAnswer.isDeleteAnswer = true
                         }
-                        randomModalImages(modalImages[i].content)
+                        randomModalImages(modalImages[i].content, i)
                     }
                 }
             }
@@ -244,6 +252,7 @@ function PageForStudentTest(){
                     </div>
                     <Table
                         tableSolution={tableSolution}
+                        isTeacher={false}
                     />
                 </div>
                 :

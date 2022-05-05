@@ -6,7 +6,7 @@ import logOut from '../styles/img/logout.png'
 import '../styles/StudentTeacher.css'
 import {Link, Outlet} from 'react-router-dom';
 import Test from './TeacherTest.js'
-//import {IoMdAddCircleOutline} from 'react-icons/IoMd'
+import {IoMdAddCircle} from 'react-icons/io'
 
 function Teacher(){
     const [testsDB, setTestsDB] = useState([])
@@ -68,6 +68,11 @@ function Teacher(){
                 </div>
                 <div className="scroll" >
                     {test}
+                    <div className="add--test">
+                        <Link to="/addTest">
+                            <IoMdAddCircle className="add--button"/>
+                        </Link>
+                    </div>
                 </div>
                 
 

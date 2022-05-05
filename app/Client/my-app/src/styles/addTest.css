@@ -1,0 +1,90 @@
+.scroll--add--test{
+    overflow: auto;
+    border: 2px solid #282c34;
+    width: 70%;
+}
+
+.scroll--add--test::-webkit-scrollbar {
+    width: 20px;
+  }
+.scroll--add--test::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+.scroll--add--test::-webkit-scrollbar-thumb{
+    background-color: #282c34;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+.scroll--search--images{
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px solid #282c34;
+    width: 30%;
+}
+.scroll--search--images::-webkit-scrollbar {
+    width: 20px;
+  }
+.scroll--search--images::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+.scroll--search--images::-webkit-scrollbar-thumb{
+    background-color: #282c34;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+.add--test--block{
+    width: 100%;
+    height: 95%;
+
+}
+.add--pic--button{
+    color: #43C140;
+    font-size: 4rem;
+    margin: 0.3em;
+}
+.add--pic--button:hover{
+    cursor: pointer;
+    transform: translateY(2px);
+}
+.navigation--search{
+    display: flex;
+    align-items: center;
+}
+.search--input{
+    width: 30%;
+    height: 90%;
+}
+.test--search{
+    display: flex;
+    width: 100%;
+    height: 80%;
+}
+
+.add--button{
+    font-size: 4.5rem;
+    color: #43C140;
+    
+}
+.add--button:hover{
+    cursor: pointer;
+    transform: translateY(2px);
+}
+.test--additing{
+    display: flex;
+
+    flex-wrap: wrap;
+}
+.buttons--editing{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #6d6d6db6;
+    padding-bottom: .2em;
+}
+.searchImages{
+    width: 100px;
+    margin: .5em;
+}

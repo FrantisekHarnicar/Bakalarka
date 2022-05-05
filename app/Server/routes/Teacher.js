@@ -41,4 +41,15 @@ const client = new Client({
   })
   })
 
+  router.post('/searchPic', function (req, res){
+    client.query(`Select * from zoznam_piktogramov Where nazov_piktogramu LIKE '%${req.body.input}%'`, (error, respond)=>{
+      res.send({
+          allImages: respond
+      })
+      if(error !== null){
+          console.log(error)
+      }
+  })
+  })
+
   module.exports = router;

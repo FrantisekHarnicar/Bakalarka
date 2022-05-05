@@ -7,20 +7,13 @@ function Tables(props){
 
    console.log(props.tableSolution)
    let counter =0
-   const clic =()=>{
-       props.showRating(true, props.meno_studenta)
-   }
-   /*if(props.isTeacher){
-        const element = document.getElementById("tr--table")
-        console.log(element)
-        element.style.cursor = 'pointer';   
-    }*/
+   
    const tableColums = props.tableSolution.rows.map((item) =>{
        const date = new Date(item.datum_odovzdania)
     counter += 1
     return(
 
-        <tr onClick={clic} id="tr--table" style={{textAlign: "center"}}>
+        <tr onClick={()=> props.showRating(true, item)} className="tr--table" style={{textAlign: "center"}}>
             <td>{counter}</td>
             <td>{item.meno_studenta}</td>
             <td>{date.getDate()}.{date.getMonth()+1}.{date.getFullYear()}</td>
@@ -30,6 +23,14 @@ function Tables(props){
     )
 
    })
+    /*if(props.isTeacher){
+        const element = document.getElementsByClassName("tr--table")
+        console.log(element[0])
+        for(let i = 0; i < props.tableSolution.rows.lenght; i++){
+            element[0].style.cursor = 'pointer';
+        }
+        //element.style.cursor = 'pointer';   
+    }*/
 
     return (
            <Table className="table" striped bordered hover variant="dark">

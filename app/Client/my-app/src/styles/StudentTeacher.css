@@ -47,6 +47,7 @@
 }
 
 .scroll{
+    position: relative;
     overflow: auto;
     height: 88%;
     display: flex;
@@ -81,7 +82,7 @@
 }
 .current--question{
     background-color: #282c34;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 .info--list{
     list-style-type: none;
@@ -152,4 +153,9 @@ li{
 .button--endTest{
     width: 80%;
     text-align: end;
+}
+.add--test{
+    position: fixed;
+    top: 82%;
+    left: 88%;
 }

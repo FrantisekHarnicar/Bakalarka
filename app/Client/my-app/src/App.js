@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import ProtectedRoutes from "./screens/ProtectedRoutes"
 import Test from './screens/PageForStudentTest';
 import TeacherRating from './screens/TeacherRating'
+import AddTest from './screens/AddTest'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/teacherRating'>
             <Route path=':id' element={<TeacherRating />}/>
           </Route>
+          <Route path='/addTest' element={<AddTest/>}/>
           <Route path='*' element={<MainScreen/>} />
         </Routes>
       </div>
