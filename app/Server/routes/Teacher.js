@@ -30,6 +30,15 @@ const client = new Client({
     })
 
   })
-
+  router.post('/studentRating', function (req, res){
+    client.query(`Select * from hodnotenie_studenta Where nazov_testu='${req.body.id}' Order by pocet_spravnych_odpovedi desc`, (error, respond)=>{
+      res.send({
+          allRating: respond
+      })
+      if(error !== null){
+          console.log(error)
+      }
+  })
+  })
 
   module.exports = router;

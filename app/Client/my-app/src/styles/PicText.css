@@ -14,5 +14,21 @@
     margin: 0.5em;
 }
 .question--input{
-    width: 95%;
+    border: 0;
+    width: 90%;
+    color: black;
+    text-align: center;
+    font-family: 'Franklin Gothic';
+}
+.question--input::placeholder{
+    color: black;
+}
+.question--obr--add{
+    width: 60%;
+    height: 60%;
+    margin: 0.5em;
+}
+.question--obr--add:hover{
+    cursor: pointer;
+    transform: translateY(2px);
 }

@@ -13,13 +13,19 @@ function PicText(props){
       };
       const pictogram = props.pic
 
+      const handle = () => {
+        const elem = document.getElementsByClassName("question");//.getElementById("input--comp1");
+        let rect = elem[props.id].getBoundingClientRect();
+        props.toggleModal(rect.bottom, rect.left, props.id)
+      }
+
     
     //true: text do obrazkov
     //false: obrazky do textu
     return (
         <>{props.typ?
             <div className="question">
-                <img className="question--obr" src={indian}/>
+                <img onClick={handle} className="question--obr--add" src={require(`../styles/img/pictograms/${props.pic}.png`)}/>
                 <p>{props.text}</p>
             </div>
         :

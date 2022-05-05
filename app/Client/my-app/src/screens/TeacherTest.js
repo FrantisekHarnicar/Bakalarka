@@ -33,7 +33,7 @@ function TeacherTest(props){
                 </div>
                 <div style={{width: "25%"}}>
                     <Button className="greenButtons">Upraviť</Button>
-                    <Button onClick={() => navigate('/teacherRating/'+(props.id))} className="blueButtons" >Hodnotenie</Button>
+                    <Button onClick={() => navigate('/teacherRating/'+(props.nazov_testu))} className="blueButtons" >Hodnotenie</Button>
                 </div>
                     <img onClick={deleteTest} src={close} className="close"/>
             </div>

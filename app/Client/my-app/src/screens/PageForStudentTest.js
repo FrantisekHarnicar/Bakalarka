@@ -5,11 +5,12 @@ import studentIcon from '../styles/img/studentIcon.png'
 import Plus from '../styles/img/plus.png'
 import Minus from '../styles/img/minus.png'
 import logOut from '../styles/img/logout.png'
-import {Link, Outlet} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useParams} from "react-router-dom"
 import PicText from "./PicText";
 import TestInfo from "./TestInfo";
+import InputModal from "./InputModal";
 import { Button } from "react-bootstrap";
 import Table from "./Table"
 
@@ -27,6 +28,19 @@ function PageForStudentTest(){
     const [minutes, setMinutes] = useState(0)
     const [isSaved, setIsSaved] = useState(false)
     const [tableSolution, setTableSolution] = useState([])
+    const [modalImages, setModalImages] = useState([])
+
+    const [isModalOpened, setIsModalOpened] = useState(false);
+    const [ modalPositions, setModalPositions ] = useState([])
+    const [ picNameFromModal, setPicNameFromModal ] = useState('');
+    const [ inputId, setInputId ] = useState();
+
+    const toggleModal = (bottomPosition, leftPosition, inputId) => {
+        setIsModalOpened(prevState => !prevState)
+        setModalPositions([leftPosition, bottomPosition]);
+        setInputId(inputId)
+    }
+
     let oneQuestion = []
     let solutionArray = []
     const logout = () => {
@@ -37,7 +51,13 @@ function PageForStudentTest(){
         setInterval(() => {
             setSeconds(seconds => seconds + 0.5)
         }, 1000)
-}
+    }
+    const randomModalImages = (a)=>{
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+    }
     const params = useParams();
     useEffect(()=>{
         axios.post('http://localhost:3000/studentTest',({testID:params.id}))
@@ -45,7 +65,9 @@ function PageForStudentTest(){
             setTestsDB(res.data.rows[0])
             setJsonAnswer(JSON.parse(JSON.stringify(res.data.rows[0].test)))
             setJsonTest(JSON.parse(JSON.stringify(res.data.rows[0].test.test)))
+            setModalImages(JSON.parse(JSON.stringify(res.data.rows[0].test.test)))
             setIsLoading(false)
+            
             //startTimer();
 
         })
@@ -60,6 +82,7 @@ function PageForStudentTest(){
             </div>
         )
     }
+    
 
     const deleteAnswers = () =>{
         if(jsonAnswer !== undefined){
@@ -70,6 +93,12 @@ function PageForStudentTest(){
                             jsonAnswer.test[i].content[x].text = "Zadaj odpoveď"
                             jsonAnswer.isDeleteAnswer = true
                         }
+                    }else{
+                        for(let x = 0; x < jsonAnswer.test[i].content.length; x++){
+                            jsonAnswer.test[i].content[x].pic = "addimage"
+                            jsonAnswer.isDeleteAnswer = true
+                        }
+                        randomModalImages(modalImages[i].content)
                     }
                 }
             }
@@ -95,7 +124,8 @@ function PageForStudentTest(){
         }
     }
     if(jsonTest[0] !== undefined){
-        oneQuestion = jsonTest[number].content.map((item) => {
+        oneQuestion = jsonAnswer.test[number].content.map((item) => {
+            
             if(!jsonAnswer.isDeleteAnswer){
                 deleteAnswers()
                 console.log("deleteAnswer")
@@ -110,6 +140,8 @@ function PageForStudentTest(){
                     typ={jsonTest[number].type}
                     handleChange={handleChange}
                     answer={jsonAnswer.test[number].content[item.id].text}
+                    toggleModal={toggleModal}
+                    picNameFromModal={picNameFromModal}
                 />
             )
         } )
@@ -171,9 +203,26 @@ function PageForStudentTest(){
         element.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
     }
 
+    
+    const getPicNameIdFromModal = (name, id) => {
+        setPicNameFromModal([name, id])
+        jsonAnswer.test[number].content[id].pic = name
+    }
+
     return (
         <div className="background">
             <section id="mainBlock" className="mainBlock" style={{backgroundColor: "white"}}>
+                {isModalOpened?
+                    <InputModal  
+                    piktogramList={modalImages[number].content}
+                    isModalOpened={isModalOpened}
+                    toggleModal={toggleModal}
+                    modalPositions={modalPositions}
+                    getPicNameIdFromModal={getPicNameIdFromModal}
+                    inputId={inputId}
+                    
+                    />:<></>
+                }
                 <div className="mainCaption">
                     <div className="imgNavigation"> 
                     <Link to='/student' style={{textDecoration: 'none'}}>
