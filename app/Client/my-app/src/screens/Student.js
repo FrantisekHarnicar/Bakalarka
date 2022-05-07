@@ -18,9 +18,12 @@ function Student(){
     useEffect(()=>{
         axios.get('http://localhost:3000/student')
         .then((res) => {
-            setTestsDB(res.data.rows)  
+            setTestsDB(res.data.rows) 
+            console.log(res.data) 
         })
+
     },[])
+
     const test = testsDB.map((item)=>{
         return(
         <Test

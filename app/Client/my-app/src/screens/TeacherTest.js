@@ -32,7 +32,7 @@ function TeacherTest(props){
                     <p className="testCaptionPopis">Publikované: {publicate.getDate()}.{publicate.getMonth()+1}.{publicate.getFullYear()}</p>
                 </div>
                 <div style={{width: "25%"}}>
-                    <Button className="greenButtons">Upraviť</Button>
+                    <Button onClick={() => navigate('/addTest/'+(props.id))} className="greenButtons">Upraviť</Button>
                     <Button onClick={() => navigate('/teacherRating/'+(props.nazov_testu))} className="blueButtons" >Hodnotenie</Button>
                 </div>
                     <img onClick={deleteTest} src={close} className="close"/>

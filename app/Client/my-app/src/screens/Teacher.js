@@ -27,8 +27,9 @@ function Teacher(){
       }
 
       useEffect(()=>{
-        Axios.get('http://localhost:3000/teacher')
+        Axios.post('http://localhost:3000/teacher',({name:nameTeacher}))
         .then((res) => {
+            console.log(res.data)
             setTestsDB(res.data.rows)  
         })
     },[])
@@ -69,7 +70,7 @@ function Teacher(){
                 <div className="scroll" >
                     {test}
                     <div className="add--test">
-                        <Link to="/addTest">
+                        <Link to="/addTest/new">
                             <IoMdAddCircle className="add--button"/>
                         </Link>
                     </div>

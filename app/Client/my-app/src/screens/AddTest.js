@@ -9,9 +9,13 @@ import {SiAddthis} from 'react-icons/si'
 import Plus from '../styles/img/plus.png'
 import Minus from '../styles/img/minus.png'
 import TestInfo from "./TestInfo";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import PicText from "./PicText";
 import DBImages from "./DBImages"
+import testIcon from '../styles/img/testIcon.png'
+import {useParams} from "react-router-dom"
+
+
 
 function AddTest(){
     const nameTeacher = localStorage.getItem('teacherName')
@@ -23,7 +27,30 @@ function AddTest(){
     const [imagesFromDB, setImagesFromDB] = useState([])
     Axios.defaults.withCredentials = true;
     const navigate = useNavigate();
-    let oneWord = []
+    const[wordFromSearch ,setWordFromSearch] =useState("")
+    const [saveTest, setSaveTest] = useState(false)
+    //let oneWord = []
+    const [idToWrite, setIdToWrite] = useState(0)
+    const [saveDate, setSaveDate] = useState(0)
+    const [testName, setTestName] = useState("")
+    const [loadedTestEditing, setLoadedTestEditing] = useState(false)
+
+    const params = useParams();
+    
+    if(params.id !== "new"){
+        if(!loadedTestEditing){
+            Axios.post('http://localhost:3000/testEditing',({id:params.id}))
+            .then((res)=>{
+                let json = JSON.parse(JSON.stringify(res.data.testForEditing.rows[0].test))
+                setMainTest(json)
+                setLoadedTestEditing(true)
+                console.log(res.data.testForEditing.rows[0].test.length)
+                setQuestionCount(res.data.testForEditing.rows[0].test.test.length)
+                setTestName(res.data.testForEditing.rows[0].nazov_testu)
+                setInputId(json.test[json.test.length-1].content[json.test[json.test.length-1].content.length-1].inputId)
+            })
+        }
+    }
     
     const [mainTest, setMainTest] = useState({
         "isDeleteAnswer":false,
@@ -45,8 +72,18 @@ function AddTest(){
             console.log(err)
         })
     }
+    const postToBackend =(inputValue)=>{
+        Axios.post('http://localhost:3000/searchPic',({input:inputValue}))
+        .then((res)=>{
+        setImagesFromDB(res.data.allImages.rows)
+    })
+    }
+    
 
     const addWord = () =>{
+        if(imagesFromDB[0] === undefined){
+            postToBackend('')
+        }
         console.log(mainTest)
         mainTest.test[number].content.push(
             {
@@ -63,16 +100,18 @@ function AddTest(){
     const plus = () => {
         if( questionCount-1 > number){ 
             setNumber(number+1)
+            setId(mainTest.test[number+1].content.length)
+            setQuestionType(mainTest.test[number+1].type)
         }
-        setId(mainTest.test[number+1].content.length)
-        setQuestionType(mainTest.test[number+1].type)
+        
     }
     const minus = () => {
         if(number !== 0){
             setNumber(number-1)
+            setId(mainTest.test[number-1].content.length)
+            setQuestionType(mainTest.test[number-1].type)
         }
-        setId(mainTest.test[number-1].content.length)
-        setQuestionType(mainTest.test[number-1].type)
+        
         
     }
     console.log(questionType)
@@ -131,11 +170,23 @@ function AddTest(){
         console.log(mainTest.test)
 
     }
+    const setIdFromPic = (id) =>{
+        setIdToWrite(id)
+    }
+    const addPicFromSearch = (name) =>{
+        setWordFromSearch(name)
+        if( mainTest.test[number].content[idToWrite] !== undefined){
+            mainTest.test[number].content[idToWrite].pic = name
+            mainTest.test[number].content[idToWrite].text = name
+        }
+        
+    }
+    console.log(wordFromSearch)
 
 
 
-    if(mainTest !== undefined){
-    oneWord = mainTest.test[number].content.map((item) => {
+    const oneWord = mainTest.test[number].content.map((item) => {
+        
         return(
             <PicText
                 key={item.inputId}
@@ -146,35 +197,75 @@ function AddTest(){
                 typ={mainTest.test[number].type}
                 handleChange={handleChange}
                 answer={mainTest.test[number].content[item.id].text}
-                /* toggleModal={toggleModal}
-                picNameFromModal={picNameFromModal} */
+                setIdFromPic={setIdFromPic}
                 teacherAdd={true}
                 deleteWord={deleteWord}
             />
         )
     } )
-}
 
-const searchImages = (event) =>{
-    const inputValue = event.target.value;
-    Axios.post('http://localhost:3000/searchPic',({input:inputValue}))
-    .then((res)=>{
-        setImagesFromDB(res.data.allImages.rows)
+
+    const searchImages = (event) =>{
+        const inputValue = event.target.value;
+        postToBackend(inputValue)
+        
+    }
+
+    const showSearchImages = imagesFromDB.map((item)=>{
+        return(
+            <DBImages
+                key={item.id}
+                id={item.id}
+                imgName={item.nazov_piktogramu}
+                addPicFromSearch={addPicFromSearch}
+            />
+        )
     })
-}
-
-const showSearchImages = imagesFromDB.map((item)=>{
-    return(
-        <DBImages
-            key={item.id}
-            imgName={item.nazov_piktogramu}
-        />
-    )
-})
-
-
-
-
+    const saveTestToDB = () =>{
+        let itsOK = false
+        if(testName === ""){
+            const element = document.getElementById("name")
+            element.style.border = "3px solid #ff0000"
+        }else{
+            const element = document.getElementById("name")
+            element.style.border = "3px solid #43C140"
+            itsOK = true
+        }
+        if(saveDate === 0){
+            const element = document.getElementById("date")
+            element.style.border = "3px solid #ff0000"
+        }else{
+            const element = document.getElementById("date")
+            element.style.border = "3px solid #43C140"
+            itsOK = true
+        }
+        if(itsOK){
+            let counter = 0
+            for(let i = 0; i < mainTest.test.length; i++){
+                for(let x = 0; x < mainTest.test[i].content.length; x++){
+                    mainTest.test[i].content[x].inputId = counter
+                    counter += 1
+                }
+            }
+            Axios.post('http://localhost:3000/teacherAddTest',{
+                nazov_testu:testName,
+                meno_ucitela:nameTeacher,
+                datum_publikacie:saveDate,
+                test:mainTest,
+                editing:loadedTestEditing,
+                id:params.id
+            }).then((res)=>{
+                console.log("dasdasdasddsad")
+                console.log(res.data.saved)
+                if(res.data.saved){
+                    navigate('/teacher')
+                }
+            }).catch(error => {
+                console.log(error.response)
+            });
+        }
+        
+    }
 
 
 
@@ -229,6 +320,9 @@ const showSearchImages = imagesFromDB.map((item)=>{
                             <Button onClick={addQuestion}>
                                 <p>Pridať otázku</p>
                             </Button>
+                            <Button onClick={() => setSaveTest(true)}>
+                                <p>Uložiť test</p>
+                            </Button>
                         </div>
                         
                         <div className="test--additing">
@@ -242,6 +336,34 @@ const showSearchImages = imagesFromDB.map((item)=>{
                     </div>
 
                 </div>
+
+                <Modal show={saveTest} onHide={()=> setSaveTest(false)} centered={true} style={{borderRadius: '24px'}} >
+                    <Modal.Header closeButton onClick={()=> setSaveTest(false)} style={{backgroundColor: "#393E46", border: '0px'}}>
+                    <Modal.Title className="iconPosition"><div className="circle--icon4"><img className="icon4" src={testIcon}/></div></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body bsPrefix className="bodyModal--addTest">
+                    <div className="label--input">
+                        <label  className="lable--addTest">Názov testu</label>
+                        <input id="name" type="input" className="input--addTest"  
+                           onChange={(e)=>setTestName(e.target.value)}
+                           value={testName}
+                            />
+                    </div>
+                    <div className="label--input">
+                    <label  className="lable--addTest">Dátum publikacie</label>
+                        <input id="date" type="date" className="input--addTest" 
+                           onChange={(e)=>setSaveDate(e.target.value)}
+                            />
+                        
+                    </div>
+                    </Modal.Body>
+                    <Modal.Footer bsPrefix className="footerModal">
+                    <Button onClick={saveTestToDB} className="button-17 greenEfect" >
+                        Uložiť test
+                    </Button>
+                    
+                    </Modal.Footer>
+                </Modal>
 
             </section>
         </div>

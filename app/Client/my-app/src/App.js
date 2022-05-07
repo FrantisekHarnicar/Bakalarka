@@ -30,7 +30,9 @@ function App() {
           <Route path='/teacherRating'>
             <Route path=':id' element={<TeacherRating />}/>
           </Route>
-          <Route path='/addTest' element={<AddTest/>}/>
+          <Route path='/addTest' >
+            <Route path=':id' element={<AddTest/>}/>
+          </Route>
           <Route path='*' element={<MainScreen/>} />
         </Routes>
       </div>

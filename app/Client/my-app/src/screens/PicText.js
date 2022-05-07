@@ -23,6 +23,8 @@ function PicText(props){
     }
 
     
+
+    
     //true: text do obrazkov
     //false: obrazky do textu
     return (
@@ -31,7 +33,7 @@ function PicText(props){
                 <div className="close--button--pictext">
                     <CgClose onClick={deletePic} className="close--button"/>
                 </div>
-                <img onClick={handle} className="question--obr--add--add" src={require(`../styles/img/pictograms/${props.pic}.png`)}/>
+                <img onClick={()=>props.setIdFromPic(props.id)} className="question--obr--add--add" src={require(`../styles/img/pictograms/${props.pic}.png`)}/> 
                 <input 
                 id={props.inputId}
                 onChange={getInputValue} 

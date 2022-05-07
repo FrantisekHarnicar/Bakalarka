@@ -22,6 +22,7 @@
     flex-wrap: wrap;
     justify-content: center;
     border: 2px solid #282c34;
+    align-items: flex-start;
     width: 30%;
 }
 .scroll--search--images::-webkit-scrollbar {
@@ -64,11 +65,7 @@
     height: 80%;
 }
 
-.add--button{
-    font-size: 4.5rem;
-    color: #43C140;
-    
-}
+
 .add--button:hover{
     cursor: pointer;
     transform: translateY(2px);
@@ -86,5 +83,71 @@
 }
 .searchImages{
     width: 100px;
+    height: 90px;
     margin: .5em;
 }
+.searchImages:hover{
+    cursor: pointer;
+    transform: translateY(2px);
+}
+.circle--icon4{
+    width: 40%;
+    background-color: #393E46;
+    box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.5);
+    padding: 1em;
+    border-radius: 100px;
+    margin-bottom: 1em;
+}
+.icon4{
+    width: 100%;
+}
+.input--addTest{
+    height: 50px;
+    border-radius: 25px;
+    font-size: 1.5rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-weight: 600;
+    color: #484c53;
+    font-family: 'Franklin Gothic';
+    text-align: center;
+    border: 3px solid #393E46;
+}
+.input--addTest:focus{
+    outline: 0;
+    color: #282c34;
+    border: 3px solid #08D9D6;
+    
+}
+.lable--addTest{
+    font-family: 'Franklin Gothic';
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
+    padding-bottom: .5em;
+}
+.bodyModal--addTest{
+    background-color: #393E46;
+    padding: 1em;
+    text-align: center;
+}
+.label--input{
+    padding-top: 1.8em;
+    margin: .6em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.greenEfect{
+    background-color: #43C140;
+    color: white;
+}
+.greenEfect:hover{
+    background-color: white;
+    color: #43C140;
+}
+.greenEfect:focus{
+    background-color: #43C140;
+    color: white;
+}
+
