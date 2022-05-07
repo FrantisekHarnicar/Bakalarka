@@ -37,13 +37,16 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
 
 }
 .captionText{
     margin: 0;
     font-size: 1.5rem;
     color: white;
+    
+}
+.captionCaption{
+    width: 25%;
 }
 
 .scroll{
@@ -78,7 +81,7 @@
     justify-content: space-between;
     width: 90%;
     margin: 1em;
-    height: 8%;
+    height: 40px;
 }
 .current--question{
     background-color: #282c34;

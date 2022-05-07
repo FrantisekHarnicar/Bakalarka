@@ -14,6 +14,7 @@ import PicText from "./PicText";
 import DBImages from "./DBImages"
 import testIcon from '../styles/img/testIcon.png'
 import {useParams} from "react-router-dom"
+import {BiSearchAlt2} from 'react-icons/bi'
 
 
 
@@ -29,14 +30,13 @@ function AddTest(){
     const navigate = useNavigate();
     const[wordFromSearch ,setWordFromSearch] =useState("")
     const [saveTest, setSaveTest] = useState(false)
-    //let oneWord = []
+    let oneWord = []
     const [idToWrite, setIdToWrite] = useState(0)
     const [saveDate, setSaveDate] = useState(0)
     const [testName, setTestName] = useState("")
     const [loadedTestEditing, setLoadedTestEditing] = useState(false)
 
     const params = useParams();
-    
     if(params.id !== "new"){
         if(!loadedTestEditing){
             Axios.post('http://localhost:3000/testEditing',({id:params.id}))
@@ -59,6 +59,7 @@ function AddTest(){
             "content":[]
         }]
     })
+    
 
     const logout = () => {
         Axios.delete('http://localhost:3000/teacher')
@@ -130,6 +131,8 @@ function AddTest(){
 
     }
     const deleteQuestion = ()=>{
+        if(number !== 0)
+        setNumber(number-1)
         setQuestionCount(questionCount-1)
         delete mainTest.test[number]
         var filtered = mainTest.test.filter(function (el) {
@@ -184,8 +187,8 @@ function AddTest(){
     console.log(wordFromSearch)
 
 
-
-    const oneWord = mainTest.test[number].content.map((item) => {
+    if(mainTest.test[number] !== undefined){
+    oneWord = mainTest.test[number].content.map((item) => {
         
         return(
             <PicText
@@ -203,7 +206,7 @@ function AddTest(){
             />
         )
     } )
-
+    }
 
     const searchImages = (event) =>{
         const inputValue = event.target.value;
@@ -279,13 +282,11 @@ function AddTest(){
                         <img className= "icon2" src={teacherIcon}/>
                     </Link>
                     </div>
-                    <div>
+                    <div className="captionCaption">
                     <p className="captionText">Zostavovanie testu</p>
                     </div>
                     <div className="nameLogOut">
-                        
-                            <p className="captionText">{nameTeacher}</p>
-                        
+                        <p className="captionText">{nameTeacher}</p>
                         <img className="logOut" src={logOut} onClick={logout}/>
                     </div>
                 </div>
@@ -299,28 +300,29 @@ function AddTest(){
                             />
                             <img className="sipkyPlus" src={Plus} onClick={plus}/>
                         </div>
-                        <input onChange={searchImages} className="search--input" type="text"/>
-
+                        <div className="input--search">
+                            <input placeholder="Hľadať..." onChange={searchImages} className="search--input" type="text"/>
+                        </div>
                     </div>
                     <div className="test--search">
                     <div className="scroll--add--test" >
                         <div className="buttons--editing">
-                            <Button onClick={deleteQuestion}>
+                            <Button className="buttons--editing--style delete--style" onClick={deleteQuestion}>
                                 <p>Odstrániť otázku</p>
                             </Button>
                             {questionType?
-                            <Button onClick={changeQuestionType}>
+                            <Button className="buttons--editing--style change--question" onClick={changeQuestionType}>
                                 <p>Doplniť obrázok</p>
                             </Button>
                             :
-                            <Button onClick={changeQuestionType}>
+                            <Button className="buttons--editing--style change--question" onClick={changeQuestionType}>
                                 <p>Doplniť text</p>
                             </Button>
                             }
-                            <Button onClick={addQuestion}>
+                            <Button className="buttons--editing--style add--style" onClick={addQuestion}>
                                 <p>Pridať otázku</p>
                             </Button>
-                            <Button onClick={() => setSaveTest(true)}>
+                            <Button className="buttons--editing--style add--style" onClick={() => setSaveTest(true)}>
                                 <p>Uložiť test</p>
                             </Button>
                         </div>

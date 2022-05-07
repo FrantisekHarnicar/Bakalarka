@@ -237,7 +237,7 @@ function PageForStudentTest(){
                         <img className= "icon2" src={studentIcon}/>
                     </Link>
                     </div>
-                    <div>
+                    <div className="captionCaption">
                     <p className="captionText">{testsDB.nazov_testu}</p>
                     </div>
                     <div className="nameLogOut">
