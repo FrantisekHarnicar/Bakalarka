@@ -11,12 +11,15 @@ import {useParams} from "react-router-dom"
 import PicText from "./PicText";
 import TestInfo from "./TestInfo";
 import InputModal from "./InputModal";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import Table from "./Table"
-
+import { useStopwatch } from 'react-timer-hook';
 
 
 function PageForStudentTest(){
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const name = localStorage.getItem('studentName')
     const [number, setNumber] = useState(0)
     const navigate = useNavigate();
@@ -24,8 +27,6 @@ function PageForStudentTest(){
     const [jsonTest, setJsonTest] = useState([])
     const [jsonAnswer, setJsonAnswer] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [seconds, setSeconds] = useState(0)
-    const [minutes, setMinutes] = useState(0)
     const [isSaved, setIsSaved] = useState(false)
     const [tableSolution, setTableSolution] = useState([])
     const [modalImages, setModalImages] = useState([])
@@ -40,17 +41,17 @@ function PageForStudentTest(){
         setModalPositions([leftPosition, bottomPosition]);
         setInputId(inputId)
     }
+    const {
+        seconds,
+        minutes,
+      } = useStopwatch({ autoStart: true });
+    
 
     let oneQuestion = []
     let solutionArray = []
     const logout = () => {
         localStorage.removeItem('studentName')
         navigate('/')
-    }
-    const startTimer = () => {
-        setInterval(() => {
-            setSeconds(seconds => seconds + 0.5)
-        }, 1000)
     }
     
     const randomModalImages = (array, index)=>{
@@ -75,9 +76,6 @@ function PageForStudentTest(){
             setJsonTest(JSON.parse(JSON.stringify(res.data.rows[0].test.test)))
             setModalImages(JSON.parse(JSON.stringify(res.data.rows[0].test.test)))
             setIsLoading(false)
-            
-            //startTimer();
-
         })
 
     },[])
@@ -154,10 +152,6 @@ function PageForStudentTest(){
             )
         } )
     }
-    if(seconds === 60){
-        setMinutes(minutes+1)
-        setSeconds(0)
-    }
     const currentMinutes = minutes
     const currentSeconds = seconds
     const secondString = currentSeconds.toString()
@@ -185,6 +179,7 @@ function PageForStudentTest(){
         return answerPercent
     }
     const saveTest = () => {
+        handleClose()
         const date = new Date();
         let year = date.getFullYear().toString()
         let mounth = date.getMonth()+1
@@ -201,21 +196,21 @@ function PageForStudentTest(){
         }))
         .then((res) => {
             setIsSaved(res.data.saved)
+            if(res.data.saved){
+                const element = document.getElementById("mainBlock")
+                element.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
+            }
             setTableSolution(JSON.parse(JSON.stringify(res.data.allSolution)))
         })
     }
 
-    if(isSaved){
-        const element = document.getElementById("mainBlock")
-        console.log(element)
-        element.style.backgroundColor = "rgba(255, 255, 255, 0.8)"
-    }
 
     
     const getPicNameIdFromModal = (name, id) => {
         setPicNameFromModal([name, id])
         jsonAnswer.test[number].content[id].pic = name
     }
+    
 
     return (
         <div className="background">
@@ -272,12 +267,35 @@ function PageForStudentTest(){
                     </div>
                     <div className="timer">
                         <div className="timer--items">
-                            <p>{currentMinutes} : {currentSeconds}</p>
-                            <Button onClick={saveTest} className="greenButtons">Odovzdať</Button>
+                            <div>
+                            <span>{minutes}</span> : <span>{seconds}</span>
+                            </div>
+                            <Button onClick={handleShow} className="greenButtons">Odovzdať</Button>
                         </div>
                     </div>
                 </div>
                 }
+                <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                centered={true}
+                >
+                <Modal.Header closeButton className="informationModal">
+                    <Modal.Title>Odovzdať test?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="informationModal">
+                    Po stlačení tlačidla <b>Odovzdať test</b> sa test vyhodnoti.
+                    Prajete si odovzdať test?
+                </Modal.Body>
+                <Modal.Footer className="informationModal">
+                    <Button className="delete--style" variant="secondary" onClick={handleClose}>
+                    Zavrieť
+                    </Button>
+                    <Button className="add--style" onClick={saveTest} variant="primary">Odovzdať test</Button>
+                </Modal.Footer>
+                </Modal>
 
             </section>
         </div>

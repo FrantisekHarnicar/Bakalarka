@@ -21,9 +21,7 @@ function TeacherLogin() {
         })
     },[])
     const [inputs, setInputs] = useState({});
-    const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(true);
     const navigate = useNavigate();
 
     
@@ -37,7 +35,6 @@ function TeacherLogin() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(inputs);
 
 
         axios.post('http://localhost:3000/teacherlogin', inputs)
@@ -46,19 +43,25 @@ function TeacherLogin() {
                 localStorage.setItem('teacherName', res.data.name.rows[0].meno)
                 navigate('/teacher')
             }
-            setLogin(res)})
+            setLogin(res.data.loggedIn)
+        })
         .catch(err => {
           console.error(err);
         });
-        console.log(login.data)
     }
+    if(!login){
+        const element = document.getElementById("name")
+        element.style.borderBottom = "2px solid red" 
+        const password = document.getElementById("password")
+        password.style.borderBottom = "2px solid red"
+    }
+
 
 
 
 
     return(
         <section>
-
             <Modal show={show} onHide={handleClose} centered={true} style={{borderRadius: '24px'}} >
                 <Modal.Header closeButton onClick={handleClose} style={{paddingBottom: "5em", backgroundColor: "#393E46", border: '0px'}}>
                 <Modal.Title className="iconPosition"><img className="icon1" src={teacherIcon}/></Modal.Title>
@@ -87,10 +90,6 @@ function TeacherLogin() {
                 
                 </Modal.Footer>
             </Modal>
-
-
-
-
         </section>
     );
 }

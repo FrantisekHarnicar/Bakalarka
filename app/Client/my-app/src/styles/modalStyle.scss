@@ -160,3 +160,15 @@ $gray: #9b9b9b;
   &:required,&:invalid { box-shadow:none; }
 }
 /* demo */
+.informationModal{
+  background-color: #393E46;
+  color: white;
+  border-bottom: 0;
+  border-top: 0;
+}
+@media only screen and (min-width: 800) {
+  .adjust-me-based-on-size {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}

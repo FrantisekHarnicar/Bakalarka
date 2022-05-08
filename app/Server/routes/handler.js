@@ -79,12 +79,12 @@ router.post('/teacherlogin', function (req, respond) {
                         respond.send({loggedIn:true, name: req.session.user})
                     }else{
                         console.log("Wrong password")
-                        respond.send(false)
+                        respond.send({loggedIn:false})
                     }
                 })
                 }else{
                     console.log('Wrong name')
-                    respond.send(false)
+                    respond.send({loggedIn:false})
                 }
             
 

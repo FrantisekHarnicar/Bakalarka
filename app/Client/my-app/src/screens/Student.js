@@ -7,6 +7,7 @@ import {Link, Outlet} from 'react-router-dom';
 import Test from './StudentTest.js'
 import axios from 'axios';
 
+
 function Student(){
     const name = localStorage.getItem('studentName')
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ function Student(){
         })
 
     },[])
+    
 
     const test = testsDB.map((item)=>{
         return(
@@ -37,6 +39,7 @@ function Student(){
     }
 
     )
+    
 
 
     return (
@@ -61,6 +64,7 @@ function Student(){
                     
                     
                 </div>
+                
 
             </section>
         </div>
