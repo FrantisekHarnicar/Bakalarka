@@ -35,6 +35,7 @@ function AddTest(){
     const [saveDate, setSaveDate] = useState(0)
     const [testName, setTestName] = useState("")
     const [loadedTestEditing, setLoadedTestEditing] = useState(false)
+    const [counter, setCounter] = useState(0);
 
     const params = useParams();
     if(params.id !== "new"){
@@ -42,12 +43,16 @@ function AddTest(){
             Axios.post('http://localhost:3000/testEditing',({id:params.id}))
             .then((res)=>{
                 let json = JSON.parse(JSON.stringify(res.data.testForEditing.rows[0].test))
+                setInputId(3000)
+                //setInputId(json.test[json.test.length-1].content[json.test[json.test.length-1].content.length-1].inputId)
+                setId(json.test[0].content.length)
                 setMainTest(json)
                 setLoadedTestEditing(true)
                 console.log(res.data.testForEditing.rows[0].test.length)
                 setQuestionCount(res.data.testForEditing.rows[0].test.test.length)
                 setTestName(res.data.testForEditing.rows[0].nazov_testu)
-                setInputId(json.test[json.test.length-1].content[json.test[json.test.length-1].content.length-1].inputId)
+                
+                
             })
         }
     }
@@ -94,6 +99,8 @@ function AddTest(){
                 "text": "Zadaj odpoveď"
             }
         )
+        
+        setIdFromPic(id)
         setInputId(inputId+1)
         setId(id+1)
         console.log(mainTest)
@@ -106,6 +113,7 @@ function AddTest(){
         }
         
     }
+    console.log(idToWrite)
     const minus = () => {
         if(number !== 0){
             setNumber(number-1)
@@ -177,6 +185,7 @@ function AddTest(){
         setIdToWrite(id)
     }
     const addPicFromSearch = (name) =>{
+        setCounter(counter+1)
         setWordFromSearch(name)
         if( mainTest.test[number].content[idToWrite] !== undefined){
             mainTest.test[number].content[idToWrite].pic = name

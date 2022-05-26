@@ -14,12 +14,13 @@ const client = new Client({
     port: 5432
   });
   client.connect();
+    
+  router.get('/student', function (req, res){
     const date = new Date();
     let year = date.getFullYear().toString()
     let mounth = date.getMonth()+1
     let day = date.getDate().toString()
     const saveDate = year.concat('-',mounth.toString(),'-',day)
-  router.get('/student', function (req, res){
     client.query(`Select * from zaznam_testov Where datum_publikacie Between '2000-01-01' and '${saveDate}' Order by datum_publikacie desc`, (err, respond)=>{
         if(err === null)
         res.send(respond)

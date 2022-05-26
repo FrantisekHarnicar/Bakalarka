@@ -22,17 +22,18 @@ function App() {
           </Route>
           <Route element={<ProtectedRoutes />}>
             <Route path='/teacher' element={<Teacher/>} />
-          </Route>
-          <Route path='/student' element={<Student/>} />
-          <Route path='/studentTest'>
-            <Route path=':id' element={<Test />}/>
-          </Route>
-          <Route path='/teacherRating'>
+            <Route path='/teacherRating'>
             <Route path=':id' element={<TeacherRating />}/>
           </Route>
           <Route path='/addTest' >
             <Route path=':id' element={<AddTest/>}/>
           </Route>
+          </Route>
+          <Route path='/student' element={<Student/>} />
+          <Route path='/studentTest'>
+            <Route path=':id' element={<Test />}/>
+          </Route>
+          
           <Route path='*' element={<MainScreen/>} />
         </Routes>
       </div>
