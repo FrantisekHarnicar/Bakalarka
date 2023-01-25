@@ -2,11 +2,11 @@
 
 Webová aplikacia je rozdelená na dve časti. Študentskú časť a učiteľsku:
 
-## Učiteľská časť
+### Učiteľská časť
 
 Je tu riešena autorizacia. Táto časť služi na vytvaranie testov študentom a následne ich vyhodnocovanie.
 
-## Študentská časť
+### Študentská časť
 
 Táto časť aplikacie je riešena bez autorizacie. V nej študent vypracuváva testy vytvorené učiteľom.
 
