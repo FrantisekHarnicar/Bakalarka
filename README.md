@@ -12,6 +12,8 @@ Táto časť aplikacie je riešena bez autorizacie. V nej študent vypracuváva 
 
 ## Technologie
 
-Front-end: React, Bootstrap 
+Front-end: React, Bootstrap
+
 Back-end: Node.js
+
 Databáza: PostgreSQL
